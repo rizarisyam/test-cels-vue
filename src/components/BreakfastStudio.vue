@@ -61,7 +61,7 @@
           "
         >
           <button
-          @click="addToCart"
+            @click="addToCart"
             class="
               absolute
               top-0
@@ -156,7 +156,7 @@
           "
         >
           <button
-          @click="$emit(addToCart('test', $event))"
+            @click="$emit(addToCart('test', $event))"
             class="
               absolute
               top-0
@@ -276,24 +276,18 @@ export default {
       this.dataKitchens = result;
     },
     filterMenuGroups(e) {
-      console.log(e.target.value.length);
       if (e.target.length > 0) {
         const result = this.kitchens.filter((kitchen) =>
           kitchen.groups.includes(e.target.value.toLowerCase())
         );
         this.dataKitchens = result;
-        // console.log(this.dataKitchens);
-      } 
-        // return this.dataKitchens;
-       console.log(this.dataKitchens);
-      
+      }
     },
-    addToCart: function(menu, event) {
-      if(event) {
+    addToCart: function (menu, event) {
+      if (event) {
         event.preventDefault();
       }
-      console.log(menu);
-    }
+    },
   },
   mounted() {
     this.$nextTick(function () {
