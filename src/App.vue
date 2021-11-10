@@ -1,26 +1,36 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <breakfast-studio
+      :kitchens="kitchens"
+    />
+    <!-- <BreakfastStudio
+      v-for="kitchen in kitchens"
+      :key="kitchen.name"
+      :name="kitchen.name"
+      :image="kitchen.image"
+      :groups="kitchen.groups"
+    ></BreakfastStudio> -->
+    <!-- <BreakfastStudio /> -->
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import BreakfastStudio from "./components/BreakfastStudio";
+import DUMMY_DATA from "./kitchen.js";
 
 export default {
-  name: 'App',
+  name: "App",
+  data: function () {
+    return {
+      kitchens: DUMMY_DATA,
+    };
+  },
+  mounted: function () {
+    console.log(this.kitchens);
+  },
   components: {
-    HelloWorld
-  }
-}
+    BreakfastStudio,
+  },
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+    BreakfastStudio
