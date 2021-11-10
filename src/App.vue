@@ -26,7 +26,7 @@ export default {
     };
   },
   mounted: function () {
-    console.log(this.kitchens);
+    
   },
   components: {
     BreakfastStudio,
