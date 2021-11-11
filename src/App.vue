@@ -2,6 +2,7 @@
   <div id="app">
     <breakfast-studio
       :kitchens="kitchens"
+      @customChange="logChange"
     />
     <!-- <BreakfastStudio
       v-for="kitchen in kitchens"
@@ -24,6 +25,11 @@ export default {
     return {
       kitchens: DUMMY_DATA,
     };
+  },
+  methods: {
+   logChange(data) {
+     console.log(data);
+   }
   },
   mounted: function () {
     

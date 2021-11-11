@@ -5,7 +5,7 @@ const MENU = [
     groups: ["sweet", "hot"],
   },
   {
-    name: "eggs",
+    name: "Eggs",
     image: "./images/eggs.svg",
     groups: ["protein", "hot"],
   },
