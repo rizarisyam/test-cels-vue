@@ -41,7 +41,7 @@
           class="md:ml-2 p-2 rounded"
           style="background-color: var(--concert-blue)"
         >
-          Place Order [0] (0)
+          Place Order [{{totalMenu}}] ({{quantityCart}})
         </button>
       </nav>
       <div class="grid mb-8">
@@ -53,6 +53,7 @@
           :image="menu.image"
           :groups="menu.groups"
           @addCart="cartHandler"
+          @removeQuantity="removeQuantityHandler"
         />
         <!-- <nav
         class="flex flex-col md:flex-row bg-gray-300 rounded shadow overflow-hidden p-2 mb-8 text-sm"
@@ -82,7 +83,7 @@ import BreakfastMenu from "./BreakfastMenu.vue";
 
 export default {
   name: "BreakfastStudio",
-  props: ["kitchens"],
+  props: ["kitchens", 'totalMenu', 'quantityCart'],
   data() {
     return {
       query: "",
@@ -92,6 +93,7 @@ export default {
       chart: []
     };
   },
+  inject: ['cartProvide'],
   methods: {
     findMenu() {
       const result = this.kitchens.filter(
@@ -110,11 +112,19 @@ export default {
     },
     cartHandler: function (data) {
       const menu = this.dataKitchens.find(({ name }) => name === data);
-
-      this.chart.push(menu);
-      // console.log(menu);
-      return menu;
+      // const q = {quantity: this.quantity += 1};
+      // const result = {menu, quantity: this.quantity }
+      // // this.chart.push(result);
+      
+      this.$emit('cart-parent', menu);
+      // // console.log(menu);
+      // return this.chart = menu;
     },
+    removeQuantityHandler: function(data) {
+      const menu = this.dataKitchens.find(({ name }) => name === data);
+    
+      this.$emit('remove-quantity-parent', menu);
+    }
   },
   mounted() {
     this.$nextTick(function () {
@@ -130,13 +140,11 @@ export default {
 
       this.filterGroups = result;
 
-      
+     
     });
 
   },
-  updated() {
-console.log(this.chart);
-  },
+  
   components: {
     BreakfastMenu,
   },

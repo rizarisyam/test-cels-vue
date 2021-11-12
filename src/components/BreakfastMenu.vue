@@ -1,6 +1,6 @@
 <template>
      <div class="max-w-sm py-4 rounded overflow-hidden shadow-lg bg-white text-center relative">
-          <button @click="sendCart" class="absolute top-0 right-0 mt-2 mr-2 text-gray-600 hover:text-green-600">
+          <button @click="sendCart" class="absolute top-0 left-0 mt-2 mr-2 text-gray-600 hover:text-green-600">
             <svg
               class="fill-current"
               xmlns="http://www.w3.org/2000/svg"
@@ -22,7 +22,7 @@
             </svg>
           </button>
           <!-- ONLY SHOW IF ADDED TO THE CART -->
-          <!--<button class="absolute top-0 right-0 mt-2 mr-2 text-gray-600 hover:text-red-600">
+          <button v-if="cartProvide.length > 0" @click="remove" class="absolute top-0 right-0 mt-2 mr-2 text-gray-600 hover:text-red-600">
             <svg
               class="fill-current"
               viewBox="0 0 20 20"
@@ -35,10 +35,10 @@
                 fill-rule="evenodd"
               ></path>
             </svg>
-          </button>-->
+          </button>
           <img class="mx-auto" :src="image" alt="Eggs">
           <div class="px-6 pt-4">
-            <div class="font-bold text-xl mb-2">{{name}} (0)</div>
+            <div class="font-bold text-xl mb-2">{{name}} ({{quantity.quantity ?? 0}})</div>
           </div>
           <div class="px-6 py-4">
             <span v-for="group in groups" :key="group"
@@ -54,12 +54,27 @@ export default {
     props: [
         'name',
         'image',
-        'groups'
+        'groups',
     ],
+    data() {
+      return {
+       quantity: 0
+      }
+    },
+    emits: ['add-cart'],
+    inject: ['cartProvide'],
     methods: {
         sendCart: function() {
             this.$emit('add-cart', this.name);
+        },
+        remove: function() {
+          this.$emit('remove-quantity', this.name);
         }
+    },
+    updated() {
+      if(this.cartProvide) {
+        this.quantity = this.cartProvide.find(cart => cart.name === this.name);
+      }
     }
 }
 </script>
